@@ -1,38 +1,71 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 
-function DataTable() {
-    return (
-        <Table striped bordered hover>
+class DataTable extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isFetching: false,
+            data: []
+        };
+    }
+
+    componentDidMount(){
+        this.fetchDataAsync();
+        console.log(this.data);
+    }
+
+    componentDidUpdate(){
+        console.log(this.state.data);
+    }
+
+    async fetchDataAsync() {
+        try {
+            this.setState({...this.state, isFetching: true});
+            const response = await axios.get("https://disease.sh/v3/covid-19/countries?yesterday=yesterday");
+            this.setState({data: response.data, isFetching: false});
+            console.log(response.data);
+        } catch (e) {
+            console.log(e);
+            this.setState({...this.state, isFetching: false});
+        }
+    };
+    fetchData = this.fetchDataAsync;
+
+    render(){
+        return(
+            <div>
+            <Table striped bordered hover>
             <thead>
                 <tr>
-                <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
+                <th>Country</th>
+                <th>Total Deaths</th>
+                <th>Total Cases</th>
+                <th>Deaths per Million</th>
+                <th>New Cases</th>
+                <th>New Deaths</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                </tr>
-                <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                </tr>
-                <tr>
-                <td>3</td>
-                <td colSpan="2">Larry the Bird</td>
-                <td>@twitter</td>
-                </tr>
+            {this.state.data.map((dataCountry) => {
+				return (
+					<tr>
+                        <td>{dataCountry.country}</td>
+                        <td>{dataCountry.deaths}</td>
+                        <td>{dataCountry.cases}</td>
+                        <td>{dataCountry.deathsPerOneMillion}</td>
+                        <td>{dataCountry.todayDeaths}</td>
+                        <td>{dataCountry.todayCases}</td>
+                    </tr>
+				);
+			})}
             </tbody>
         </Table>
-    )
+        </div>
+        )
+    }
+
 }
 
 export default DataTable

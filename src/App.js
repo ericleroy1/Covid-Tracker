@@ -5,6 +5,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import DataTable from "./components/DataTable";
 
 function App() {
+
+
+
+  // fetch('https://disease.sh/v3/covid-19/all')
+  // .then(res => res.json)
+  // .then(
+
+
   return (
     <div className="App">
       <header className="App-header">
