@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Dashboard() {
+function Chart() {
     return (
         <div>
-            
+            <h3>Chart</h3>
         </div>
     )
 }
 
-export default Dashboard
+export default Chart
