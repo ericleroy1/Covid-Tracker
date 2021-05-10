@@ -1,43 +1,30 @@
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { Component } from 'react';
+import { Cards, Chart, CountrySelect } from './components';
+import { fetchData } from './api/index';
+import styles from './App.module.css';
 
-import DataTable from "./components/DataTable";
+class App extends Component {
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>COVID Tracker</h1>
-      </header>
+  state = {
+    data: {},
+  };
 
-      <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
-        <Tab eventKey="home" title="Home">
-          {/* <Sonnet /> */}
-        </Tab>
-        <Tab eventKey="profile" title="Vaccine Data">
-          {/* <Sonnet /> */}
-        </Tab>
-        <Tab eventKey="contact" title="Worsening">
-          {/* <Sonnet /> */}
-        </Tab>
-        <Tab eventKey="contact" title="Improving">
-          {/* <Sonnet /> */}
-        </Tab>
-      </Tabs>
-      
-        <form>
-          <label>
-            Search country:
-            <input type="text" name="name" />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
+async componentDidMount(){
+  const fetchedData = await fetchData();
+  this.setState({ data:fetchedData });
+}
 
-    <DataTable />
+  render() {
+    const { data } = this.state;
 
-    </div>
-  );
+    return (
+      <div className={styles.container}>
+        <Cards data={data}/>
+        <Chart />
+        <CountrySelect />
+      </div>
+    )
+  }
 }
 
 export default App;
