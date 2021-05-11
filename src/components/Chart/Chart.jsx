@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchChartData } from '../../api/index';
-// import { Line, Bar } from 'react-chartjs-2';
+import { Line, Bar } from 'react-chartjs-2';
 
 function Chart() {
 
@@ -17,17 +17,23 @@ function Chart() {
     return (
         <div>
             <h2>Cumulative Cases</h2>
-            {chartData.map((data) => {
-				return (
-					<h4>{data.totalConfirmed}</h4>
-				);
-			})}
-            <h2>Cumulative deaths</h2>
-            {chartData.map((data) => {
-				return (
-					<h4>{data.deaths.total}</h4>
-				);
-			})}
+            <Line
+            data={{
+                labels: chartData.map(({ date }) => new Date(date).toLocaleDateString()),
+                datasets: [{
+                    data:chartData.map((data) => data.totalConfirmed)
+                }]
+            }}
+            />
+            <h2>Cumulative Deaths</h2>
+            <Line
+            data={{
+                labels: chartData.map(({ date }) => new Date(date).toLocaleDateString()),
+                datasets: [{
+                    data:chartData.map((data) => data.deaths.total)
+                }]
+            }}
+            />
         </div>
     )
 }
