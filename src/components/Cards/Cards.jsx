@@ -1,19 +1,19 @@
 import React from 'react';
-import styles from './Cards.module.css';
 import CountUp from 'react-countup';
 import { Card, CardContent, Typography, Grid, StylesProvider } from '@material-ui/core';
+
+import './Cards.css';
 
 function Cards({data: {confirmed, recovered, deaths, lastUpdate}}) {
     if(!confirmed){
         return 'Loading ...'
     }
-    // console.log(props.data.confirmed.value);
     return (
         <div>
             <Grid container spacing={3} justify="center">
-                <Grid item component={Card}>
-                    <CardContent>
-                        <Typography color="textSecondary" gutterBottom>Total Cases</Typography>
+                <Grid item component={Card} xs={11} md={3} className='card'>
+                    <CardContent  className='infected'>
+                        <Typography gutterBottom>Total Cases</Typography>
                         <Typography variant="h4">
                             <CountUp
                             start={0}
@@ -22,13 +22,12 @@ function Cards({data: {confirmed, recovered, deaths, lastUpdate}}) {
                             separator=","
                             />
                         </Typography>
-                        <Typography color="textSecondary"></Typography>
                         <Typography variant="body2">Number of cumulative cases</Typography>
                     </CardContent>
                 </Grid>
-                <Grid item component={Card}>
-                    <CardContent>
-                        <Typography color="textSecondary" gutterBottom>Global Deaths</Typography>
+                <Grid item component={Card} xs={11} md={3} className='card'>
+                    <CardContent className='deaths'>
+                        <Typography gutterBottom>Global Deaths</Typography>
                         <Typography variant="h4">
                         <CountUp
                             start={0}
@@ -37,13 +36,12 @@ function Cards({data: {confirmed, recovered, deaths, lastUpdate}}) {
                             separator=","
                             />
                         </Typography>
-                        <Typography color="textSecondary"></Typography>
                         <Typography variant="body2">Number of cumulative deaths</Typography>
                     </CardContent>
                 </Grid>
-                <Grid item component={Card}>
-                    <CardContent>
-                        <Typography color="textSecondary" gutterBottom>Recovered</Typography>
+                <Grid item component={Card} xs={11} md={3} className='card'>
+                    <CardContent className='recovered'>
+                        <Typography gutterBottom>Recovered</Typography>
                         <Typography variant="h4">
                         <CountUp
                             start={0}
@@ -52,7 +50,6 @@ function Cards({data: {confirmed, recovered, deaths, lastUpdate}}) {
                             separator=","
                             />
                         </Typography>
-                        <Typography color="textSecondary"></Typography>
                         <Typography variant="body2">Number of recovered cases</Typography>
                     </CardContent>
                 </Grid>

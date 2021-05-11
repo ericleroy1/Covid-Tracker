@@ -6,7 +6,6 @@ export const fetchData = async () => {
     try {
         const { data } = await axios.get(url);
 
-
         // goes through the data object and creates a new
         // object out of the specified key:value pairs
         const modifiedData = {
@@ -19,4 +18,14 @@ export const fetchData = async () => {
     } catch (error) {
         
     }
-}
+};
+
+export const fetchChartData = async () => {
+  try {
+    const { data } = await axios.get(`${url}/daily`);
+    console.log(data);
+    return data
+  } catch (error) {
+    return error;
+  }
+};

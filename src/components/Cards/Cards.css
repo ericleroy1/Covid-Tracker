@@ -1,0 +1,20 @@
+  
+.card {
+  margin: 0 2%;
+  border-bottom: 10px solid black;
+}
+
+  .infected {
+    color: red;
+    margin: 0 2%;
+  }
+  
+  .deaths{
+    color: purple;
+    margin: 0 2%;
+  }
+    
+  .recovered{
+    color: green;
+    margin: 0 2%;
+  }
